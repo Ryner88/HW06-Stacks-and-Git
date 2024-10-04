@@ -35,11 +35,20 @@ record Expr(String text) {
                 continue;
             }
 
-            // TODO:
-            // if (ch.equals(")")) {
-            //   ...
+            // Handle closing parentheses
+            if (ch.equals(")")) {
+                // Pop two operands and one operator from the stack
+                var operand2 = stack.pop();  // Second operand (right-hand side)
+                var operator = stack.pop();  // Operator (+, -, *, /)
+                var operand1 = stack.pop();  // First operand (left-hand side)
+                
+                // Apply the operation using applyOp and push the result back onto the stack
+                var result = applyOp(operand1, operator, operand2);
+                stack.push(result);
+            }
         }
 
+        // At the end of the loop, the result should be the only element left in the stack
         try {
             return Integer.parseInt(stack.pop());
         }
@@ -63,7 +72,6 @@ record Expr(String text) {
     }
 
     static String applyOp(String a1, String op, String a2) {
-        //System.out.printf("applyOp(%s %s %s)\n", a1, op, a2);
         try {
             var xx = Integer.parseInt(a1);
             var yy = Integer.parseInt(a2);
