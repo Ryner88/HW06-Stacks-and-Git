@@ -35,7 +35,7 @@ record Expr(String text) {
                 continue;
             }
 
-            // Handle closing parentheses
+            // TODO
             if (ch.equals(")")) {
                 // Pop two operands and one operator from the stack
                 var operand2 = stack.pop();  // Second operand (right-hand side)
